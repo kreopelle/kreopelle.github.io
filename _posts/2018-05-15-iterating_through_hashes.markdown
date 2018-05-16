@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Iterating through hashes"
-date:       2018-05-16 02:00:07 +0000
+date:       2018-05-15 22:00:08 -0400
 permalink:  iterating_through_hashes
 ---
 
@@ -29,12 +29,12 @@ I decided that the best way to store the ingredients was in a hash. Hashes are d
 I transformed this: 
 
 **Ingredients**
-3 1/2 to 4 cups bread flour, plus more for rolling (Chef's Note: Using bread flour will give you a much crisper crust. If you can't find bread flour, you can substitute it with all-purpose flour which will give you a chewier crust.)
-1 teaspoon sugar
-1 envelope instant dry yeast
-2 teaspoons kosher salt
-1 1/2 cups water, 110 degrees F
-2 tablespoons olive oil, plus 2 teaspoons
+* 3 1/2 to 4 cups bread flour, plus more for rolling (Chef's Note: Using bread flour will give you a much crisper crust. If you can't find bread flour, you can substitute it with all-purpose flour which will give you a chewier crust.)
+* 1 teaspoon sugar
+* 1 envelope instant dry yeast
+* 2 teaspoons kosher salt
+* 1 1/2 cups water, 110 degrees F
+* 2 tablespoons olive oil, plus 2 teaspoons
 
 
 ... into this: 
