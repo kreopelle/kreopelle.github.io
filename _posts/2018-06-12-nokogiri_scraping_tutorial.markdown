@@ -18,7 +18,7 @@ For this walkthrough, I’m using [Yoga Journal’s Poses by Type](https://www.y
 
 This is one of the pages I'm using for my CLI Data Gem Project. Scraping sites can fail if their content or structure has changed, so this content is accurate as of publication on June 12, 2018. I'll also be using the Google Chrome browser on a Mac. Feel free to follow along!
 
-## 1. Add Nokogiri, Open-URI, and Pry to your ruby file 
+## 1. Add Nokogiri, Open-URI, and Pry to your Ruby file 
 
 First, install the gems by typing into the terminal:
 ```
@@ -33,7 +33,7 @@ require ‘open-uri’
 require ‘pry’
 ```
 
-Note: Open-URI is not a gem, but a built-in Ruby wrapper that allows HTML documents to be read as a file: https://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html. I’m not sure how it relates to the current Ruby series.&#x2028;&#x2028;
+*Note: [Open-URI is not a gem, but a built-in Ruby wrapper that allows HTML documents to be read as a file:](https://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html). I’m not sure how it relates to the current Ruby series.*
 
 ## 2. Save the site you’d like to scrape to a variable
 
@@ -54,7 +54,7 @@ binding.pry
 
 And your terminal command to run the file would be:
 
-`ruby my-file.rb`&#x2028;
+`ruby my-file.rb`
 
 ## 4. Inspect content to scrape on your webpage
 
@@ -62,9 +62,9 @@ Let’s hop over to the website. For part of my project, I'm hoping to create a 
 
 Right click on the page and hit *Inspect*. Go to the top left corner of the inspect window, and click on the arrow pointing to the middle of the square (the info balloon should say something like, “Select an element in the page to inspect it”). 
 
-![](https://imgur.com/rS5ViSy)
+![Right click, then select 'Inspect'](https://imgur.com/rS5ViSy)
 
-![](https://imgur.com/sRm1YT2)
+![Locate the Element Inspector icon](https://imgur.com/sRm1YT2)
 
 Hover over an example of the item you’re looking for. This will highlight the corresponding CSS in the Elements window while highlighting the element’s bounds (usually through a colored box). Click on the item to select its CSS in the Elements window. 
 
@@ -74,7 +74,7 @@ When hovering, I like to ask myself:
 
 ![While hovering, look at the highlighted content in the Element Inspector Panel](https://imgur.com/wmeoAwG)
 
-Yes! between the > < signs, I see “Arm Balance Yoga Poses”
+Yes! between the > < signs, I see “Arm Balance Yoga Poses”.
 
 * What is the CSS selector or HTML tag for this item? Some common examples are `div`, `a`, and `h2`. In Chrome, this will be the text that shows up first, in pink.
 
@@ -94,7 +94,7 @@ Here, the text is a little long. It looks like the class is called `m-card--head
 
 ![Close up hovering view of Balancing Yoga Poses](https://imgur.com/HP9VtTF)
 
-In this case, yes: "Balancing Yoga Poses" has the same CSS as "Arm Balances"! 
+Yes: "Balancing Yoga Poses" has the same CSS as "Arm Balances"! 
 
 Let's take this information back to our code.
 
@@ -123,7 +123,7 @@ To specify the content you’re searching for in Nokogiri, chain additional meth
 #.attribute('img').value —> will pull image urls 
 ```
 
-In this case, we’re looking for a string, so let’s try adding `#.text `
+We’re looking for a string, so let’s try adding `#.text `
 
 ```
 pry(main)> doc.css('h2.m-card--header-text').text
@@ -137,7 +137,7 @@ tep Pranayama Technique for Stillness and PeaceYoga Journal's 2017 Pose of YearR
 epare for Pranayama"
 ```
 
-Woohoo! We’ve got one long string that has all pose type headlines! To determine if they are accessible as individuals, I like to run the same code, but chaining `#.first `before `#.text`
+We’ve got one long string that has all pose type headlines! To determine if they are accessible as individuals, I like to run the same code, but chaining `#.first `before `#.text`
 
 ```
 pry(main)> doc.css('h2.m-card--header-text').first.text
@@ -150,15 +150,13 @@ Awesome. We’ve got you now.
 
 Return to your web browser. Take a look at the parent of your desired data. Look for an arrow pointing down in the Elements panel.
 
-In this case, it’s:
-
 ![View of the parent element](https://imgur.com/UPbbmYM)
 
 I tend to have a lot of luck with using only the class for the method's argument when building an array of data scraped from a webpage. Let’s test the following: 
 
 `doc.css('.m-card—header')`
 
-Sweet — our little strings are nestled within this code. Let’s try iterating through it: 
+Wonderful — our little strings are nestled within this code. Let’s try iterating through it: 
 
 ```
 doc.css('.m-card--header').collect do |pose_type|
@@ -168,9 +166,7 @@ end
 
 Here, I’m using the `doc` variable, saved to the value of the HTML of our desired webpage, and narrow it down to just the data that has a class of `.m-card--header`. I’m using the `#collect` iterator to go through each child of this class–which in our case, we hope is a pose type category–and push just the text within `h2` tags into an array. 
 
-Why just `h2`? Nokogiri doesn’t require both tags/selectors and classes/ids in every call. Sometimes one or the other will retrieve what you’re looking for. In this case, the `.m-card--header` class narrows the retrieved content to children of that class. Each headline is encased within an `h2` tag, and the only `h2` tags that are children of `.m-card--header` contain the data I’d like to scrape. 
-
-In this case, success!! 
+Why just `h2`? Nokogiri doesn’t require both tags/selectors and classes/ids in every call. Sometimes one or the other will retrieve what you’re looking for. The `.m-card--header` class narrows the retrieved content to children of that class. Each headline is encased within an `h2` tag, and the only `h2` tags that are children of `.m-card--header` contain the data I’d like to scrape. 
 
 ```
 => ["Arm Balance Yoga Poses",
@@ -190,6 +186,8 @@ In this case, success!!
  "Yoga Backbends",
  ...
 ```
+
+Success!
 
 Don’t be afraid to keep playing around until you find what works, or go back to the CSS to see if there may be another way to scrape what you’re looking for. 
 
