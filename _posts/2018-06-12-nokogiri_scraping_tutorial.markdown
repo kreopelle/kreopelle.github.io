@@ -1,6 +1,6 @@
 ---
 layout: post
-title:      "Nokogiri Scraping Tutorial"
+title:      "Nokogiri Scraping Walkthrough"
 date:       2018-06-12 13:11:08 -0400
 permalink:  nokogiri_scraping_tutorial
 ---
@@ -13,7 +13,7 @@ Before we get started, I want you all to know that I am not an expert in Nokogir
 For this walkthrough, I’m using [Yoga Journal’s Poses by Type](https://www.yogajournal.com/poses/types). 
 
 
-![](https://imgur.com/FRr2M3A)
+![Yoga Journal's Poses by Type Webpage](https://imgur.com/FRr2M3A)
 
 
 This is one of the pages I'm using for my CLI Data Gem Project. Scraping sites can fail if their content or structure has changed, so this content is accurate as of publication on June 12, 2018. I'll also be using the Google Chrome browser on a Mac. Feel free to follow along!
@@ -99,7 +99,7 @@ In this case, yes: "Balancing Yoga Poses" has the same CSS as "Arm Balances"!
 Let's take this information back to our code.
 
 
-### 5. Play around in Pry
+## 5. Play around in Pry
 
 Experimentation time! 
 
@@ -146,7 +146,7 @@ pry(main)> doc.css('h2.m-card--header-text').first.text
 
 Awesome. We’ve got you now. 
 
-### 6. Push the content into an array
+## 6. Push the content into an array
 
 Return to your web browser. Take a look at the parent of your desired data. Look for an arrow pointing down in the Elements panel.
 
