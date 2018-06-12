@@ -13,7 +13,7 @@ Before we get started, I want you all to know that I am not an expert in Nokogir
 For this walkthrough, I’m using [Yoga Journal’s Poses by Type](https://www.yogajournal.com/poses/types). 
 
 
-![Yoga Journal's Poses by Type Webpage](https://imgur.com/FRr2M3A)
+![Yoga Journal's Poses by Type Webpage](https://i.imgur.com/FRr2M3A.png)
 
 
 This is one of the pages I'm using for my CLI Data Gem Project. Scraping sites can fail if their content or structure has changed, so this content is accurate as of publication on June 12, 2018. I'll also be using the Google Chrome browser on a Mac. Feel free to follow along!
@@ -62,9 +62,9 @@ Let’s hop over to the website. For part of my project, I'm hoping to create a 
 
 Right click on the page and hit *Inspect*. Go to the top left corner of the inspect window, and click on the arrow pointing to the middle of the square (the info balloon should say something like, “Select an element in the page to inspect it”). 
 
-![Right click, then select 'Inspect'](https://imgur.com/rS5ViSy)
+![Right click, then select 'Inspect'](https://i.imgur.com/rS5ViSy.png)
 
-![Locate the Element Inspector icon](https://imgur.com/sRm1YT2)
+![Locate the Element Inspector icon](https://i.imgur.com/sRm1YT2.png)
 
 Hover over an example of the item you’re looking for. This will highlight the corresponding CSS in the Elements window while highlighting the element’s bounds (usually through a colored box). Click on the item to select its CSS in the Elements window. 
 
@@ -72,19 +72,19 @@ When hovering, I like to ask myself:
 
 * Is the content I’m looking for stored within this item? Can I see the text, link, image, etc. wrapped within the CSS in the Elements panel? 
 
-![While hovering, look at the highlighted content in the Element Inspector Panel](https://imgur.com/wmeoAwG)
+![While hovering, look at the highlighted content in the Element Inspector Panel](https://i.imgur.com/wmeoAwG.png)
 
 Yes! between the > < signs, I see “Arm Balance Yoga Poses”.
 
 * What is the CSS selector or HTML tag for this item? Some common examples are `div`, `a`, and `h2`. In Chrome, this will be the text that shows up first, in pink.
 
-![Close up hovering view of Arm Balance Yoga Poses](https://imgur.com/ZQk4oH3)
+![Close up hovering view of Arm Balance Yoga Poses](https://i.imgur.com/ZQk4oH3.png)
 
 For this example, the selector is `h2`.
 
 * Is there any ID or Class information that follows the selector/tag? 
 
-![Close up hovering view of Arm Balance Yoga Poses](https://imgur.com/ZQk4oH3)
+![Close up hovering view of Arm Balance Yoga Poses](https://i.imgur.com/ZQk4oH3.png)
 
 Here, the text is a little long. It looks like the class is called `m-card--header-text ng-isolate-scope`. Double click on the class information in the Elements panel and copy it.
 
@@ -92,7 +92,7 @@ Here, the text is a little long. It looks like the class is called `m-card--head
 
 * Does similar content on the page share CSS selectors/classes, etc? Hover over similar items to see if they share selector/class/id information. 
 
-![Close up hovering view of Balancing Yoga Poses](https://imgur.com/HP9VtTF)
+![Close up hovering view of Balancing Yoga Poses](https://i.imgur.com/HP9VtTF.png)
 
 Yes: "Balancing Yoga Poses" has the same CSS as "Arm Balances"! 
 
@@ -150,7 +150,7 @@ Awesome. We’ve got you now.
 
 Return to your web browser. Take a look at the parent of your desired data. Look for an arrow pointing down in the Elements panel.
 
-![View of the parent element](https://imgur.com/UPbbmYM)
+![View of the parent element](https://i.imgur.com/UPbbmYM.png)
 
 I tend to have a lot of luck with using only the class for the method's argument when building an array of data scraped from a webpage. Let’s test the following: 
 
