@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Nokogiri Scraping Tutorial"
-date:       2018-06-12 17:11:07 +0000
+date:       2018-06-12 13:11:08 -0400
 permalink:  nokogiri_scraping_tutorial
 ---
 
@@ -13,12 +13,12 @@ Before we get started, I want you all to know that I am not an expert in Nokogir
 For this walkthrough, I’m using [Yoga Journal’s Poses by Type](https://www.yogajournal.com/poses/types). 
 
 
-![Yoga Journal's Poses by Type Webpage](https://imgur.com/FRr2M3A)
+![](https://imgur.com/FRr2M3A)
 
 
 This is one of the pages I'm using for my CLI Data Gem Project. Scraping sites can fail if their content or structure has changed, so this content is accurate as of publication on June 12, 2018. I'll also be using the Google Chrome browser on a Mac. Feel free to follow along!
 
-###  1. Add Nokogiri, Open-URI, and Pry to your ruby file 
+## 1. Add Nokogiri, Open-URI, and Pry to your ruby file 
 
 First, install the gems by typing into the terminal:
 ```
@@ -33,13 +33,13 @@ require ‘open-uri’
 require ‘pry’
 ```
 
-Note: Open-URI is not a gem, but a built-in Ruby wrapper that allows HTML documents to be read as a file: https://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html. I’m not sure how it relates to the current Ruby series.  
+Note: Open-URI is not a gem, but a built-in Ruby wrapper that allows HTML documents to be read as a file: https://ruby-doc.org/stdlib-2.1.0/libdoc/open-uri/rdoc/OpenURI.html. I’m not sure how it relates to the current Ruby series.&#x2028;&#x2028;
 
-### 2. Save the site you’d like to scrape to a variable
+## 2. Save the site you’d like to scrape to a variable
 
 `doc = Nokogiri::HTML(open(‘https://www.yogajournal.com/poses/types'))`
 
-### 3. Add a binding.pry below the variable and run your file. 
+## 3. Add a binding.pry below the variable and run your file. 
 
 If you’re following along, the document should look something like this:
 
@@ -54,17 +54,17 @@ binding.pry
 
 And your terminal command to run the file would be:
 
-`ruby my-file.rb` 
+`ruby my-file.rb`&#x2028;
 
-### 4. Inspect content to scrape on your webpage
+## 4. Inspect content to scrape on your webpage
 
 Let’s hop over to the website. For part of my project, I'm hoping to create a class of objects where each instance is a type of yoga pose. I’d like to use Nokogiri to scrape all of the pose type names and their associated URLs. 
 
 Right click on the page and hit *Inspect*. Go to the top left corner of the inspect window, and click on the arrow pointing to the middle of the square (the info balloon should say something like, “Select an element in the page to inspect it”). 
 
-![Right click, then select 'Inspect'](https://imgur.com/rS5ViSy)
+![](https://imgur.com/rS5ViSy)
 
-![Locating the Element Inspector Icon](https://imgur.com/sRm1YT2)
+![](https://imgur.com/sRm1YT2)
 
 Hover over an example of the item you’re looking for. This will highlight the corresponding CSS in the Elements window while highlighting the element’s bounds (usually through a colored box). Click on the item to select its CSS in the Elements window. 
 
