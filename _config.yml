@@ -1,15 +1,14 @@
 # Site settings
-title: 
+author: Kayla Reopelle
+title: Kayla Reopelle | Junior Software Developer
 header-img: img/home-bg.png
 email: kreopelle@gmail.com
-copyright_name: kreopelle
+copyright_name: Kayla Reopelle
 description: > # this means to ignore newlines until "baseurl:"
-  
+  Learning to code with the Flatiron School
 baseurl: "" # the subpath of your site, e.g. /blog
 twitter_username: 
 github_username:  kreopelle
-learn_profile: kreopelle
-email_username: kreopelle@gmail.com
 
 # Build settings
 markdown: kramdown
