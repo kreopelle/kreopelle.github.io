@@ -18,9 +18,9 @@ First, [create a new repository on Github](https://help.github.com/articles/crea
 
 Next, open your terminal, and create a “bare clone” of the repository that holds your existing Rails app using the `https://` URL. 
 
-
-```$ git clone --bare https://github.com/yourusername/existing-rails-repository.git```
-
+```
+$ git clone --bare https://github.com/yourusername/existing-rails-repository.git
+```
 
 If you look at the new folder that’s created, it doesn’t include a lot of human-meaningful information, or resemble much of what you might expect the repository to look like at all. 
 
@@ -28,11 +28,15 @@ My understanding of this bare clone is a GitHub skeleton copy of the repository,
 
 `cd` into this skeleton copy. 
 
-```$ cd existing-rails-repository.git ```
+```
+$ cd existing-rails-repository.git
+```
 
 The next step is where the magic happens: 
 
-```$ git push --mirror https://github.com/yourusername/new-repository-js.git``` 
+```
+$ git push --mirror https://github.com/yourusername/new-repository-js.git
+``` 
 
 This command pushes a "mirror" of your existing repository to the new respository we created to house the JS-ified version of your Rails app. 
 
