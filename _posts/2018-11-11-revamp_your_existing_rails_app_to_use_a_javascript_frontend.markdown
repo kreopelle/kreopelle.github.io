@@ -1,7 +1,7 @@
 ---
 layout: post
 title:      "Revamp your existing Rails app to use a JavaScript frontend "
-date:       2018-11-11 18:49:12 +0000
+date:       2018-11-11 13:49:13 -0500
 permalink:  revamp_your_existing_rails_app_to_use_a_javascript_frontend
 ---
 
@@ -14,25 +14,46 @@ This first part outlines the process for setting up the requirements for your ap
 
 To duplicate the repository, I followed the method to mirror a repository as listed on [GitHub Help](https://help.github.com/articles/duplicating-a-repository/). 
 
-* [Create a new repository on Github](https://help.github.com/articles/creating-a-new-repository/) for your Rails/JS app to live in. I named this repo after my Rails app with “-js” tacked on the end. 
+First, [create a new repository on Github](https://help.github.com/articles/creating-a-new-repository/) for your Rails/JS app to live in. I named this repo after my Rails app with “-js” tacked on the end. 
 
-* Open your terminal.
+Next, open your terminal, and create a “bare clone” of the repository that holds your existing Rails app using the `https://` URL. 
 
-* Create a “bare clone” of the repository that holds your existing Rails app using the `https://` URL. 
 
 ```$ git clone --bare https://github.com/yourusername/existing-rails-repository.git```
 
-* Mirror-push to the new repository 
 
-```$ cd old-repository.git
-$ git push --mirror https://github.com/yourusername/new-repository-js.git``` 
+If you look at the new folder that’s created, it doesn’t include a lot of human-meaningful information, or resemble much of what you might expect the repository to look like at all. 
 
-* Remove the temporary local copy of your existing Rails app's repository
+My understanding of this bare clone is a GitHub skeleton copy of the repository, just basic, under the hood stuff that makes up the structure of the repo – stuff you probably didn’t create. 
+
+`cd` into this skeleton copy. 
+
+```$ cd existing-rails-repository.git ```
+
+The next step is where the magic happens: 
+
+```$ git push --mirror https://github.com/yourusername/new-repository-js.git``` 
+
+This command pushes a "mirror" of your existing repository to the new respository we created to house the JS-ified version of your Rails app. 
+
+Think of a `mirror push` as copying and pasting everything from your old repo–the diretory structure, files, commits, branches, etc.–to the new repository. You may have to log in to your GitHub account via the command line to make this work.
+
+Visit the page that houses your new repository to check it out. You should see a perfect copy of the repository that housed your Rails app! Visit the page for your Rails app’s repository, and you should see nothing changed there either!
+
+Let’s clean up our work. Delete the bare clone copy of your old repo:
 
 ```
 $ cd ..
-$ rm - rf existing-rails-repository.git
+$ rm -rf existing-rails-repository.git
 ``` 
+
+Now you have a fresh copy of your Rails repo to start adding JavaScript to. Clone down a copy of this repository onto your device and let's start preparing it to handle your new JS code. 
+
+```
+$ git clone git@github.com:yourusername/new-repository-js.git
+$ cd new-repository-js
+```
+
 
 ### Add jquery-rails and active_model_serializers to your Gemfile
 
@@ -169,6 +190,6 @@ Why does this happen? Using `respond_to` tells your browser, “If the user want
 
 Adding the ability for your controller actions to render JSON enables the Javascript you write to access information from your database in a format it natively understands.
 
-##### Now you’re all set up to start writing JavaScript repaint the front end of your Rails app!
+### Now you’re all set up to start writing JavaScript!
 
 My next blog post will be about commandeering the DOM with JavaScript event listeners to paint your browser with content retrieved and sent using asynchronous requests to your database.
