@@ -13,11 +13,10 @@ This tutorial uses a local storage system and does not use direct uploads. I hop
 There are tons of awesome tutorials that go in depth on setting up a React App with a Rails API on the backend. I got started using the guides by [Full Stack React](https://www.fullstackreact.com/articles/how-to-get-create-react-app-to-work-with-your-rails-api/) and [Nick Hartunian](https://medium.com/@nick.hartunian/rails-5-api-create-react-app-full-stack-heaven-2b2160b5ce6b). 
 
 After starting your basic React App with a Rails API, we’ll:
-
-- Install ActiveStorage
-- Set up a model, controller, and serializer to handle file attachments
-- Create stateful React components connected to the Redux store to upload and display your content
-- Generate reducers and actions to make asynchronous requests to your Rails API
+Install ActiveStorage
+Set up a model, controller, and serializer to handle file attachments
+Create stateful React components connected to the Redux store to upload and display your content
+Generate reducers and actions to make asynchronous requests to your Rails API
 
 
 Here’s a guide to fast-forward through the setup:
@@ -47,7 +46,6 @@ $ touch Procfile
 ``` 
 
 * Add to the file:  
-
 ```
 # Procfile
 
@@ -71,7 +69,7 @@ task :start do
 end 
 ``` 
 
-Now you have the basic skeleton for your app as well as a command to start both your Rails API (located at `localhost:3001`) and your React app (located at `localhost:3000`) simultaneously. Just type: 
+Now you have the basic skeleton for your app as well as a command to start both your Rails API (located at localhost:3001) and your React app (located at localhost:3000) simultaneously. Just type: 
 
 ```
 $ rake start
@@ -79,8 +77,7 @@ $ rake start
 
 Beautiful! You should see the spinning React logo open in a browser window. If you navigate to localhost:3001, you should be greeted by our Rails cartoon friends.
 
-Now for the fun stuff!
-
+Now for the fun stuff:  
 ### Install active_model_serializers gem
 
 This gem prepares Model attributes to be rendered into JSON. Down the line, we’ll use it to include the url for our attached file in the JSON representation of our model. Add it to your Gemfile and run bundle install.
@@ -94,9 +91,7 @@ gem ‘active_model_serializers’
 $ bundle install 
 ```
 
-**NOTE: ** Active Model Serializers is, at the time of writing, undergoing renovations. Rails may have other approved methods/processes in the future.   
-
-### Create the model you’d like to attach a file to
+NOTE: Active Model Serializers is, at the time of writing, undergoing renovations. Rails may have other approved methods/processes in the future.   ### Create the model you’d like to attach a file to
 
 For the sake of this tutorial, we’ll run a scaffold generator for our model. This will create a controller with actions ready to render JSON (thank you API mode!), a model, a serializer with attributes pre-filled, and a migration ready to run for our DB. 
 
@@ -125,7 +120,7 @@ According to [Evil Martians](https://evilmartians.com/chronicles/rails-5-2-activ
 
 ### Associate Model, Controller, and Serializer with File
 
-* Model: 
+Model: 
 
 To associate a file with your model, you just need to add `has_one_attached` and then the attribute name for that file to your model. The attribute name can be anything you’d like.
 
@@ -140,7 +135,7 @@ end
 ```
 If you’d like to associate multiple files with an Active Record Model, you can use `has_many_attached` instead. I haven’t tested the rest this tutorial using the `has_many_attached` association.
 
-* Controller: 
+Controller: 
 Add the attribute assigned to has_one_attached from your model to the private params method at the bottom of your controller. 
 
 ```
@@ -157,7 +152,7 @@ end
 … 
 ``` 
 
-* Serializer: 
+Serializer: 
 
 Right now your file will exists as a blob, but to use it in your React app, we need to serialize the url that points to where this blob lives in your database (remember, to your program it is just a large binary object). To make this happen we need to include Rails’ url_helpers and write a method that will return the associated blob url. 
 
@@ -254,16 +249,13 @@ end
 
 This middleware explicitly allows any requests from `localhost:3000` to be accepted by our Rails API. 
 
-### YOUR RAILS API IS OFFICIALLY READY FOR LIFTOFF 
+### YOUR RAILS API IS OFFICIALLY READY FOR LIFTOFF ### 
 
 Take a brief intermission before we dive into the React portion. Perhaps, by watching this lovely video: 
 
 
-
-
 <iframe src="https://player.vimeo.com/video/27315673" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/27315673">Trim</a> from <a href="https://vimeo.com/peteyboy">Peter Simon (Petey Boy)</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-
+<p><a href="https://vimeo.com/27315673">Trim</a> from <a href="https://vimeo.com/peteyboy">Peter Simon (Petey Boy)</a> on <a href=“https://vimeo.com">Vimeo</a>.</p>
 
 
 
@@ -274,7 +266,110 @@ the form that holds the upload field
 the container that displays the content from the api
 the individual records retrieved from the api
 
-If you haven’t already, check out [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) to get up to speed on the process. Long story short (but hopefully not made longer by this intermission), we’re skipping best practices and encouraged design patterns to get to what’s necessary to make your uploads happen. 
+If you haven’t already, check out [Thinking in React](https://reactjs.org/docs/thinking-in-react.html) to get up to speed on the process. Long story short (but hopefully not made longer by this intermission), this tutorial is skipping best practices and encouraged design patterns to get to what’s necessary to make Active Storage uploads happen. 
 
 At this point, you’ve gone through the hard and cryptic stuff. The rest is just building a React application with a Redux store that uses Thunk middleware to make POST and GET requests to your Rails API. 
+
+### Prepare your React application to use Redux and Redux-Thunk
+
+Redux is a state management tool that works with React to have one consistent state object, known as the store, accessible to all connected components. This makes the process of accessing passing props between components without direct relationships a lot easier. 
+
+The store operates as a single source of truth for the Redux application, allowing data to be accessed more quickly. 
+
+Instead of making database calls every time a component is rendered, the store holds data related to the current state of your application and passes that data to the components that need it. 
+
+The store updates through actions (Javascript Objects with a key of “type”) and reducers (switch/case statements that alter the state based on the actions dispatched to them). 
+
+Thunk is a middleware for Redux that makes life a lot easier to make asynchronous requests. 
+
+Redux has a built-in function called dispatch that passes actions (which are just plain ol’ JavaScript objects with a key of “type”) down to reducers. According to [the docs](https://github.com/reduxjs/redux-thunk), “a thunk is a function that wraps an expression to delay its evaluation.” Calls to external sources, are asynchronous. Because 
+
+To break it down: 
+Redux is not automatically part of React, it needs to be installed
+React passes props down from parent components to child components, making it difficult for cousins to get access to that data 
+Redux creates a store that is a single source of truth for the application’s current state. 
+The store can be accessed by any component connected to it
+Redux uses actions and reducers to dispatch changes to the store 
+
+Gaining these powers is as simple as running:
+
+```
+$ cd client
+$ npm install --save redux
+$ npm install --save react-redux
+$ npm install --save thunk
+``` 
+Your React app now has the ability to: 
+
+Hold a store that functions as a single source of truth for the state of the application ([Redux](https://redux.js.org/)) 
+Dispatch actions from components to alter the store and read data from the store ([React-Redux](https://react-redux.js.org/docs/introduction/quick-start))
+Write action creators that return functions instead of actions allowing asynchronous requests ([Thunk](https://github.com/reduxjs/redux-thunk))
+
+Let’s put these new powers to use! 
+
+### Set up index.js to handle middleware and provide the store 
+Add the following into your index.js
+
+```
+// client/src/index.js 
+
+import { Provider } from ‘react-redux’;
+
+import { createStore, applyMiddleware, compose } from ‘redux’;
+
+
+import thunk from ‘redux-thunk’; 
+
+```
+Provider is a component that connects the Redux store to the React app. It passes down the store as a prop. Provider is the parent component to App — the top-level component for our React application. As a child, App also receives access to the store.
+
+Next, we import three key Redux functions: `createStore` initializes the store based on a reducer and has a second argument containing middleware, which is created by calling `applyMiddleware`. For our purposes, `applyMiddleware`’s argument will be `thunk`. If you’d like to use the Redux DevTools Extension, `compose` allows multiple pieces of middleware to be added to the store upon initialization. 
+
+We put these into action after the import statements with the following: 
+
+```
+// client/src/index.js
+
+…
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+let store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+);
+```
+
+The first part, composeEnhancers connects our React/Redux application to DevTools to provide a view of the actions that have been dispatched and the current state of the store in the browser’s console.
+
+Next, the store is created by calling the createStore function with two arguments: the `rootReducer`, which we’ll create in a moment, that contains all of the case/switch statements that will manipulate the store, and middleware connections. Since we’d like to access both the Redux DevTools and Thunk, we use `composeEnhancers` with `applyMiddleware(thunk) `as its argument. If you don’t want to use DevTools, you can also just pass `applyMiddleware(thunk)` as the second argument.
+
+
+###  Build a stateful component with a file upload field
+- stateful vs not stateful 
+
+### Connect that component to the Redux Store 
+- store as single source of truth 
+
+### Create an action to make a post request to your API 
+- write said action in thunk fashion 
+
+### Write a reducer to handle that action
+
+### Create a component to render items stored in your Rails API
+
+### Write an action to handle a GET request for the API content 
+
+### Write a case statement to handle that action in the reducer
+
+### Call action in App using componentDidMount() lifecycle method
+( do this b/c don’t want to fetch all the time, would rather use the content in the store ) 
+
+### Pass down to the presentational component the state object representing what was returned from the GET request 
+
+*This post would not have been possible without the amazing help of Jessie Huff, Dakota Martinez, and the gracious souls who responded to numerous Github Issues and StackOverflow Questions.*
 
